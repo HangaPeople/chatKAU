@@ -23,7 +23,7 @@ public class Curriculum {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserDetail user;
 
     @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CurrCourse> currCours = new ArrayList<>();

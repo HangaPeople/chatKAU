@@ -2,9 +2,9 @@ package com.chatkau.service;
 
 import com.chatkau.dto.CurriculumDto;
 import com.chatkau.entity.Curriculum;
-import com.chatkau.entity.User;
+import com.chatkau.entity.UserDetail;
 import com.chatkau.repository.CurrRepository;
-import com.chatkau.repository.UserRepository;
+import com.chatkau.repository.UserDetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +17,10 @@ import java.util.NoSuchElementException;
 public class CurrService {
 
     private final CurrRepository currRepository;
-    private final UserRepository userRepository;
+    private final UserDetailRepository userDetailRepository;
 
     public CurriculumDto createCurriculum(CurriculumDto curriculumDto) {
-        User user = userRepository.findById(curriculumDto.getUserId())
+        UserDetail user = userDetailRepository.findById(curriculumDto.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Curriculum curr = Curriculum.builder()
