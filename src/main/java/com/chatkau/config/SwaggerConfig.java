@@ -55,4 +55,14 @@ public class SwaggerConfig {
                 .pathsToMatch(paths)
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi chatGPT() {
+        String[] paths = {"/chat-gpt/**"};
+
+        return GroupedOpenApi.builder()
+                .group("chatGPT 서비스")
+                .pathsToMatch(paths)
+                .build();
+    }
 }
