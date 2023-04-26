@@ -19,7 +19,7 @@ public class CurrCourseController {
 
     private final CurrCourseService currCourseService;
 
-    @Operation(summary = "커리큘럼 과목 단건 조회", description = "id를 받아 커리큘럼 과목을 조회한다.")
+    @Operation(summary = "커리큘럼 과목 조회", description = "id를 받아 커리큘럼 과목을 조회한다.")
     @GetMapping("/{id}")
     public ResponseEntity<List<Course>> getCurriculumCourseById(@PathVariable Long id) {
         List<Course> curriculumCourse = currCourseService.findCoursesByCurriculumId(id);
