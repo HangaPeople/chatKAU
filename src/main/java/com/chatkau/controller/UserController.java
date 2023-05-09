@@ -1,9 +1,6 @@
 package com.chatkau.controller;
 
-import com.chatkau.config.BaseResponse;
-import com.chatkau.dto.UserDto;
-import com.chatkau.dto.request.UserLoginRequest;
-import com.chatkau.dto.response.UserLoginResponse;
+import com.chatkau.dto.user.UserDto;
 import com.chatkau.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +30,8 @@ public class UserController {
         return "<h1> 이건 누구나 볼 수 있는거 <h1>";
     }
 
-    @PostMapping("auth/signup")
+    @PostMapping("/auth/signup")
     public ResponseEntity<?> signup(@RequestBody UserDto userDto) {
-        UserDto user = userService.join(userDto);
-
-        return ResponseEntity.ok(userDto);
+        return userService.join(userDto);
     }
 }
