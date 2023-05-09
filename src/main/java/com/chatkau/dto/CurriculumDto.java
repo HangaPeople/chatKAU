@@ -22,7 +22,7 @@ public class CurriculumDto {
                 curr.getTitle(),
                 curr.getDescription(),
                 curr.getUser().getId(),
-                curr.getCurrCours()
+                curr.getCurrCourse()
         );
     }
 }
