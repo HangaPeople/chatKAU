@@ -1,4 +1,4 @@
-package com.chatkau.dto;
+package com.chatkau.dto.user;
 
 import com.chatkau.entity.UserDetail;
 import com.chatkau.entity.UserLogin;
