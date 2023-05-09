@@ -1,12 +1,10 @@
 package com.chatkau.controller;
 
-import com.chatkau.config.BaseResponse;
-import com.chatkau.dto.UserDto;
-import com.chatkau.dto.request.UserLoginRequest;
-import com.chatkau.dto.response.UserLoginResponse;
+import com.chatkau.dto.user.UserDto;
 import com.chatkau.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,17 +31,7 @@ public class UserController {
 
     @Operation(summary = "회원가입", description = "userDto를 받아 회원가입을 한다.")
     @PostMapping("/signup")
-    public BaseResponse<UserDto> signup(@RequestBody UserDto userDto) {
-        UserDto user = userService.join(userDto);
-
-        return new BaseResponse<>(user);
-    }
-
-    @Operation(summary = "로그인", description = "userLoginRequest를 받아 로그인을 한다.")
-    @PostMapping("/signin")
-    public BaseResponse<UserLoginResponse> login(@RequestBody UserLoginRequest request) {
-        String token = userService.login(request.getUserId(), request.getPassword());
-
-        return new BaseResponse<>(new UserLoginResponse(request.getUserId(), request.getPassword(), token));
+    public ResponseEntity<?> signup(@RequestBody UserDto userDto) {
+        return userService.join(userDto);
     }
 }

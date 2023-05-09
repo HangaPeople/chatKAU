@@ -2,41 +2,35 @@ package com.chatkau.service;
 
 import com.chatkau.config.BaseResponseStatus;
 import com.chatkau.config.exception.BaseException;
-import com.chatkau.dto.UserDto;
-import com.chatkau.entity.User;
-import com.chatkau.repository.UserRepository;
-import com.chatkau.util.JwtTokenProvider;
+import com.chatkau.dto.user.UserDto;
+import com.chatkau.entity.UserDetail;
+import com.chatkau.repository.UserDetailRepository;
+import com.chatkau.repository.UserLoginRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final UserDetailRepository userDetailRepository;
+    private final UserLoginRepository userLoginRepository;
     private final BCryptPasswordEncoder encoder;
 
-    public UserDto join(UserDto userDto) {
-        userRepository.findByUserId(userDto.getUserId()).ifPresent(it -> {
+    @Transactional
+    public ResponseEntity<?> join(UserDto userDto) {
+        if(userDetailRepository.findByUsername(userDto.getUsername()).isPresent())
             throw new BaseException(BaseResponseStatus.DUPLICATED_USERID);
-        });
 
-        userDto.setPassword(encoder.encode(userDto.getPassword()));
-        userRepository.save(User.of(userDto));
-        return userDto;
-    }
+        UserDetail userDetail = userDetailRepository.save(userDto.toUserDetail());
 
-    public String login(String userId, String password) {
-        User user = userRepository.findByUserId(userId).orElseThrow(() -> {
-            throw new BaseException(BaseResponseStatus.USERID_ERROR);
-        });
+        String encryptedPassword = encoder.encode(userDto.getPassword());
 
-        if (!encoder.matches(password, user.getPassword())) {
-            throw new BaseException(BaseResponseStatus.PASSWORD_ERROR);
-        }
+        userLoginRepository.save(userDto.toUserLogin(userDetail, encryptedPassword));
 
-        return jwtTokenProvider.createToken(userId, user.getRoles());
+        return ResponseEntity.ok("SUCCESS");
     }
 }
