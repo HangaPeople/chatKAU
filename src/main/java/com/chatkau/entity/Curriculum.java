@@ -26,5 +26,5 @@ public class Curriculum {
     private UserDetail user;
 
     @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CurrCourse> currCours = new ArrayList<>();
+    private List<CurrCourse> currCourse = new ArrayList<>();
 }

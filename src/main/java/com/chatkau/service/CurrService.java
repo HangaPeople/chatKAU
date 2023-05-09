@@ -27,7 +27,7 @@ public class CurrService {
                 .title(curriculumDto.getTitle())
                 .description(curriculumDto.getDescription())
                 .user(user)
-                .currCours(new ArrayList<>())
+                .currCourse(new ArrayList<>())
                 .build();
 
         currRepository.save(curr);
