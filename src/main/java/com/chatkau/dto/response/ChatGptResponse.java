@@ -17,16 +17,16 @@ public class ChatGptResponse implements Serializable {
     private String object;
     private LocalDate created;
     private String model;
-    private List<ChoiceDto> choiceDtos;
+    private List<ChoiceDto> choices;
 
     @Builder
     public ChatGptResponse(String id, String object,
                               LocalDate created, String model,
-                              List<ChoiceDto> choiceDtos) {
+                              List<ChoiceDto> choices) {
         this.id = id;
         this.object = object;
         this.created = created;
         this.model = model;
-        this.choiceDtos = choiceDtos;
+        this.choices = choices;
     }
 }
