@@ -1,6 +1,6 @@
 package com.chatkau.dto.request;
 
-import com.chatkau.entity.Message;
+import com.chatkau.dto.MessageDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ChatGptRequest implements Serializable {
 
     private String model;
-    private List<Message> messages;
+    private List<MessageDto> messages;
     @JsonProperty("max_tokens")
     private Integer maxTokens;
     private Double temperature;
@@ -22,7 +22,7 @@ public class ChatGptRequest implements Serializable {
     private Double topP;
 
     @Builder
-    public ChatGptRequest(String model, List<Message> messages,
+    public ChatGptRequest(String model, List<MessageDto> messages,
                                   Integer maxTokens, Double temperature,
                                   Double topP) {
         this.model = model;

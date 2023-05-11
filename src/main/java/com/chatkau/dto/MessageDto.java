@@ -1,9 +1,9 @@
-package com.chatkau.entity;
+package com.chatkau.dto;
 
 import lombok.Data;
 
 @Data
-public class Message {
+public class MessageDto {
     private String role;
     private String content;
 }
